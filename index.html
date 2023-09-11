@@ -9,6 +9,11 @@
     <script src="https://unpkg.com/mr-excel@latest/dist/excel-table.umd.js"></script>
     <script src="html2canvas.min.js"></script>
     <script src="cdnjs.cloudflare.com_ajax_libs_FileSaver.js_2.0.0_FileSaver.min.js"></script>
+    <style>
+        .clickable {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -254,6 +259,7 @@
                 }, false)
                 element1.setAttribute('data-index', index + "")
                 element1.id = "div" + index
+                element1.classList.add("clickable")
                 element1.style.display = "flex"
                 element1.style.flexDirection = "column"
                 element1.style.marginRight = "4px"
@@ -273,7 +279,7 @@
                 element3.style.height = (size.size - size.header) + "px"
                 element3.style.backgroundColor = "#" + val.color4
                 // element3.style.color = `rgb(${generateContrastTextColor(val.color4).join(",")})`
-                element3.innerText = ""+index
+                element3.innerText = "" + index
                 // element3.style.color = "red"
                 element1.append(element2)
                 element1.append(element3)
