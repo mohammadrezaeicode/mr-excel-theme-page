@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>MR-Excel</title>
+    <script src="https://unpkg.com/mr-excel@latest/dist/excel-table.umd.js"></script>
+    <script src="html2canvas.min.js"></script>
+    <script src="cdnjs.cloudflare.com_ajax_libs_FileSaver.js_2.0.0_FileSaver.min.js"></script>
+</head>
+
+<body>
+    <h1>MR-Excel</h1>
+    <script>
+        let size = {
+            size: 80,
+            header: 30
+        }
+        function generateData() {
+            return {
+                data: {
+                    sheet: [
+                        {
+                            headers: [
+                                {
+                                    label: "ID",
+                                    text: "ID"
+                                },
+                                {
+                                    label: "FirstName",
+                                    text: "First Name"
+                                },
+                                {
+                                    label: "LastName",
+                                    text: "Last Name"
+                                },
+                                {
+                                    label: "Age",
+                                    text: "Age"
+                                },
+                                {
+                                    label: "Email",
+                                    text: "Email"
+                                },
+                                {
+                                    label: "PhoneNumber",
+                                    text: "PhoneNumber"
+                                },
+                                {
+                                    label: "Address",
+                                    text: "Address"
+                                },
+                                {
+                                    label: "Occupation",
+                                    text: "Occupation"
+                                }
+                            ],
+                            data: [
+                                {
+                                    "ID": 1,
+                                    "FirstName": "John",
+                                    "LastName": "Smith",
+                                    "Age": 32,
+                                    "Email": "john@example.com",
+                                    "PhoneNumber": "555-123-4567",
+                                    "Address": "123 Main St, City",
+                                    "Occupation": "Engineer"
+                                },
+                                {
+                                    "ID": 2,
+                                    "FirstName": "Jane",
+                                    "LastName": "Doe",
+                                    "Age": 28,
+                                    "Email": "jane@example.com",
+                                    "PhoneNumber": "555-987-6543",
+                                    "Address": "456 Elm St, Town",
+                                    "Occupation": "Teacher"
+                                },
+                                {
+                                    "ID": 3,
+                                    "FirstName": "David",
+                                    "LastName": "Johnson",
+                                    "Age": 45,
+                                    "Email": "david@example.com",
+                                    "PhoneNumber": "555-555-5555",
+                                    "Address": "789 Oak St, City",
+                                    "Occupation": "Doctor"
+                                },
+                                {
+                                    "ID": 4,
+                                    "FirstName": "Sarah",
+                                    "LastName": "Brown",
+                                    "Age": 22,
+                                    "Email": "sarah@example.com",
+                                    "PhoneNumber": "555-321-6549",
+                                    "Address": "101 Pine St, Town",
+                                    "Occupation": "Student"
+                                },
+                                {
+                                    "ID": 5,
+                                    "FirstName": "Michael",
+                                    "LastName": "Wilson",
+                                    "Age": 38,
+                                    "Email": "michael@example.com",
+                                    "PhoneNumber": "555-777-8888",
+                                    "Address": "246 Maple St, City",
+                                    "Occupation": "Lawyer"
+                                },
+                                {
+                                    "ID": 6,
+                                    "FirstName": "Emily",
+                                    "LastName": "Davis",
+                                    "Age": 29,
+                                    "Email": "emily@example.com",
+                                    "PhoneNumber": "555-444-3333",
+                                    "Address": "555 Birch St, Town",
+                                    "Occupation": "Nurse"
+                                },
+                                {
+                                    "ID": 7,
+                                    "FirstName": "Daniel",
+                                    "LastName": "Lee",
+                                    "Age": 31,
+                                    "Email": "daniel@example.com",
+                                    "PhoneNumber": "555-666-9999",
+                                    "Address": "777 Cedar St, City",
+                                    "Occupation": "Software Dev"
+                                },
+                                {
+                                    "ID": 8,
+                                    "FirstName": "Olivia",
+                                    "LastName": "White",
+                                    "Age": 27,
+                                    "Email": "olivia@example.com",
+                                    "PhoneNumber": "555-222-1111",
+                                    "Address": "888 Redwood St, Town",
+                                    "Occupation": "Artist"
+                                },
+                                {
+                                    "ID": 9,
+                                    "FirstName": "James",
+                                    "LastName": "Anderson",
+                                    "Age": 40,
+                                    "Email": "james@example.com",
+                                    "PhoneNumber": "555-888-3333",
+                                    "Address": "333 Oak St, City",
+                                    "Occupation": "Accountant"
+                                },
+                                {
+                                    "ID": 10,
+                                    "FirstName": "Sophia",
+                                    "LastName": "Martinez",
+                                    "Age": 24,
+                                    "Email": "sophia@example.com",
+                                    "PhoneNumber": "555-999-7777",
+                                    "Address": "666 Pine St, Town",
+                                    "Occupation": "Engineer"
+                                }
+                            ]
+                        }
+                    ],
+                },
+            };
+        }
+        async function generateFiles(index) {
+            // console.log("called" + index)
+            // console.log(document.querySelector("#div" + index))
+            html2canvas(document.querySelector("#div" + index), {
+                width: size.size,
+                height: size.size
+            }).then(function (canvas) {
+                // document.body.appendChild(canvas);
+                // console.log(canvas)
+                // document.body.append(canvas)
+                // canvas.toBlob(function (blob) {
+                //     saveAs(blob, "pretty image.png");
+                // });
+                const dataURL = canvas.toDataURL('image/png');
+
+                // Create an <a> element for the download link
+                const downloadLink = document.createElement('a');
+
+                // Set the href and download attributes
+                downloadLink.href = dataURL;
+                // downloadLink.download = 'canvas_image.png'; // You can change the filename here
+                downloadLink.download = index + ".png"
+                // Trigger a click event on the download link
+                downloadLink.click();
+
+            });
+            // ExcelTable.convertTableToExcel("#table", null, true, (value, index, from) => {
+            //     return 10
+            // })
+            console.log(ExcelTable)
+            // ExcelTable.generateExcel(generateData().data)
+            const { data } = generateData();
+            ExcelTable.themeBaseGenerate({
+                ...data,
+                fileName: "black-white-text" + index
+            }, index
+                //  ,{
+                // rIndex: 1,
+                // hIndex: 4,
+                // nColor: true
+                // }
+            );
+            ExcelTable.themeBaseGenerate({
+                ...data,
+                fileName: "negative-text" + index
+            }, index, {
+                // rIndex: 1,
+                // hIndex: 4,
+                nColor: true
+            });
+        }
+        let element = document.createElement("div")
+        element.style.display = "flex"
+        element.style.flexWrap = "wrap"
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result
+                ? [
+                    parseInt(result[1], 16),
+                    parseInt(result[2], 16),
+                    parseInt(result[3], 16),]
+                : null;
+        }
+        function generateContrastTextColor(b) {
+            const background = hexToRgb(b)
+            if (background == null) {
+                return
+            }
+            // Calculate the perceived brightness (luminance) of the background color
+            const bgLuminance = (0.299 * background[0] + 0.587 * background[1] + 0.114 * background[2]) / 255;
+
+            // Determine whether the text should be dark or light based on luminance
+            const textColor = bgLuminance > 0.5 ? [0, 0, 0] : [255, 255, 255];
+
+            return textColor;
+        }
+        let datas = fetch("./colorHunt-pa.json").then(res => {
+
+            return res.json()
+        }).then(res => {
+
+            res.forEach((val, index) => {
+                console.log(val)
+                let element1 = document.createElement("div")
+
+                element1.addEventListener("click", function (e) {
+                    generateFiles(index)
+                }, false)
+                element1.setAttribute('data-index', index + "")
+                element1.id = "div" + index
+                element1.style.display = "flex"
+                element1.style.flexDirection = "column"
+                element1.style.marginRight = "4px"
+                element1.style.marginBottom = "4px"
+                element.append(element1)
+
+                let element2 = document.createElement("div")
+                element2.style.width = (size.size) + "px"
+                element2.style.height = (size.header) + "px"
+                element2.style.backgroundColor = "#" + val.color1
+                // element2.style.color = `rgb(${generateContrastTextColor(val.color1).join(",")})`
+                // element2.innerText = "Tcolor"+index
+                element2.style.marginRight = "auto"
+                element2.style.marginLeft = "auto"
+                let element3 = document.createElement("div")
+                element3.style.width = (size.size) + "px"
+                element3.style.height = (size.size - size.header) + "px"
+                element3.style.backgroundColor = "#" + val.color4
+                // element3.style.color = `rgb(${generateContrastTextColor(val.color4).join(",")})`
+                element3.innerText = ""+index
+                // element3.style.color = "red"
+                element1.append(element2)
+                element1.append(element3)
+            });
+            // console.log(res)
+            return res
+        }).then(res => {
+            console.log(res)
+            // let func = function (index = 0, length) {
+            //     if (index >= 1488) {
+            //         if (index < 1789) {
+            //             setTimeout(_ => {
+            //                 generateFiles(index)
+            //                 setTimeout(_ => {
+            //                     func(index + 1, length)
+            //                 }, 100)
+            //             }, 100)
+            //         }
+            //     }else{
+            //         func(index + 1, length)
+            //     }
+            // }
+            // func(0, res.length)
+            // res.forEach((v, index) => {
+            //     setTimeout(_ => {
+            //         setTimeout(_ => {
+            //             generateFiles(index)
+            //         }, 10000)
+            //     }, 10000)
+            // })
+
+            return res
+        })
+        document.querySelector("body").append(element)
+
+
+        // let element1 = document.createElement("div")
+        // element1.style.display = "flex"
+        // element1.style.flexDirection = "column"
+        // element1.style.marginRight = "1px"
+        // element.append(element1)
+
+        // let element2 = document.createElement("div")
+        // element2.style.width = "24px"
+        // element2.style.height = "8px"
+        // element2.style.backgroundColor = "red"
+        // let element3 = document.createElement("div")
+        // element3.style.width = "24px"
+        // element3.style.height = "16px"
+        // element3.style.backgroundColor = "yellow"
+        // element3.style.color = "red"
+        // element1.append(element2)
+        // element1.append(element3)
+
+    </script>
+</body>
+
+</html>
